@@ -1,0 +1,76 @@
+12 May, 2014 5:12:38 PM jaccard_simlarity.main_jaccard main
+INFO: main program started
+12 May, 2014 5:12:38 PM jaccard_simlarity.file_lister list_files
+INFO: files present in /home/kiran/Documents/input/article_comparison/folder 1is : 104
+12 May, 2014 5:12:38 PM jaccard_simlarity.file_lister list_files
+INFO: files present in /home/kiran/Documents/input/article_comparison/folder 2is : 66
+12 May, 2014 5:15:43 PM jaccard_simlarity.main_jaccard main
+INFO: main program started
+12 May, 2014 5:15:43 PM jaccard_simlarity.file_lister list_files
+INFO: files present in /home/kiran/Documents/input/article_comparison/folder 1is : 104
+12 May, 2014 5:15:43 PM jaccard_simlarity.file_lister list_files
+INFO: files present in /home/kiran/Documents/input/article_comparison/folder 2is : 66
+12 May, 2014 5:15:43 PM jaccard_simlarity.main_jaccard jaccard_comparison
+INFO: File /home/kiran/Documents/input/article_comparison/folder 1/17621.xml matched to /home/kiran/Documents/input/article_comparison/folder 2/mas_1790.xml with % = 69
+12 May, 2014 5:15:44 PM jaccard_simlarity.main_jaccard jaccard_comparison
+INFO: File /home/kiran/Documents/input/article_comparison/folder 1/22922.xml matched to /home/kiran/Documents/input/article_comparison/folder 2/mas_2411.xml with % = 66
+12 May, 2014 5:15:44 PM jaccard_simlarity.main_jaccard jaccard_comparison
+INFO: File /home/kiran/Documents/input/article_comparison/folder 1/24244.xml matched to /home/kiran/Documents/input/article_comparison/folder 2/mas_753.xml with % = 67
+12 May, 2014 5:15:44 PM jaccard_simlarity.main_jaccard jaccard_comparison
+INFO: File /home/kiran/Documents/input/article_comparison/folder 1/22446.xml matched to /home/kiran/Documents/input/article_comparison/folder 2/mas_1806.xml with % = 68
+12 May, 2014 5:15:46 PM jaccard_simlarity.main_jaccard jaccard_comparison
+INFO: File /home/kiran/Documents/input/article_comparison/folder 1/14190.xml matched to /home/kiran/Documents/input/article_comparison/folder 2/mas_1451.xml with % = 62
+12 May, 2014 5:15:46 PM jaccard_simlarity.main_jaccard jaccard_comparison
+INFO: File /home/kiran/Documents/input/article_comparison/folder 1/25923.xml matched to /home/kiran/Documents/input/article_comparison/folder 2/mas_2134.xml with % = 75
+12 May, 2014 5:15:46 PM jaccard_simlarity.main_jaccard jaccard_comparison
+INFO: File /home/kiran/Documents/input/article_comparison/folder 1/1910.xml matched to /home/kiran/Documents/input/article_comparison/folder 2/mas_19.xml with % = 64
+12 May, 2014 5:15:46 PM jaccard_simlarity.main_jaccard jaccard_comparison
+INFO: File /home/kiran/Documents/input/article_comparison/folder 1/26607.xml matched to /home/kiran/Documents/input/article_comparison/folder 2/mas_3010.xml with % = 52
+12 May, 2014 5:15:47 PM jaccard_simlarity.main_jaccard jaccard_comparison
+INFO: File /home/kiran/Documents/input/article_comparison/folder 1/4234.xml matched to /home/kiran/Documents/input/article_comparison/folder 2/mas_485.xml with % = 62
+12 May, 2014 5:15:47 PM jaccard_simlarity.main_jaccard jaccard_comparison
+INFO: File /home/kiran/Documents/input/article_comparison/folder 1/14297.xml matched to /home/kiran/Documents/input/article_comparison/folder 2/mas_1409.xml with % = 69
+12 May, 2014 5:15:47 PM jaccard_simlarity.main_jaccard jaccard_comparison
+INFO: File /home/kiran/Documents/input/article_comparison/folder 1/24347.xml matched to /home/kiran/Documents/input/article_comparison/folder 2/mas_2856.xml with % = 82
+12 May, 2014 5:15:47 PM jaccard_simlarity.main_jaccard jaccard_comparison
+INFO: File /home/kiran/Documents/input/article_comparison/folder 1/36596.xml matched to /home/kiran/Documents/input/article_comparison/folder 2/mas_1409.xml with % = 68
+12 May, 2014 5:15:47 PM jaccard_simlarity.main_jaccard jaccard_comparison
+INFO: File /home/kiran/Documents/input/article_comparison/folder 1/6712.xml matched to /home/kiran/Documents/input/article_comparison/folder 2/mas_336.xml with % = 64
+12 May, 2014 5:15:47 PM jaccard_simlarity.main_jaccard jaccard_comparison
+INFO: File /home/kiran/Documents/input/article_comparison/folder 1/21999.xml matched to /home/kiran/Documents/input/article_comparison/folder 2/mas_2522.xml with % = 74
+12 May, 2014 5:15:48 PM jaccard_simlarity.main_jaccard jaccard_comparison
+INFO: File /home/kiran/Documents/input/article_comparison/folder 1/24826.xml matched to /home/kiran/Documents/input/article_comparison/folder 2/mas_753.xml with % = 68
+12 May, 2014 5:15:48 PM jaccard_simlarity.main_jaccard jaccard_comparison
+INFO: File /home/kiran/Documents/input/article_comparison/folder 1/33368.xml matched to /home/kiran/Documents/input/article_comparison/folder 2/mas_3022.xml with % = 55
+12 May, 2014 5:15:49 PM jaccard_simlarity.main_jaccard jaccard_comparison
+INFO: File /home/kiran/Documents/input/article_comparison/folder 1/21733.xml matched to /home/kiran/Documents/input/article_comparison/folder 2/mas_2569.xml with % = 80
+12 May, 2014 5:15:49 PM jaccard_simlarity.main_jaccard jaccard_comparison
+INFO: File /home/kiran/Documents/input/article_comparison/folder 1/15604.xml matched to /home/kiran/Documents/input/article_comparison/folder 2/mas_1852.xml with % = 62
+12 May, 2014 5:15:49 PM jaccard_simlarity.main_jaccard jaccard_comparison
+INFO: File /home/kiran/Documents/input/article_comparison/folder 1/21460.xml matched to /home/kiran/Documents/input/article_comparison/folder 2/mas_2533.xml with % = 74
+12 May, 2014 5:15:49 PM jaccard_simlarity.main_jaccard jaccard_comparison
+INFO: File /home/kiran/Documents/input/article_comparison/folder 1/36594.xml matched to /home/kiran/Documents/input/article_comparison/folder 2/mas_1451.xml with % = 67
+12 May, 2014 5:15:49 PM jaccard_simlarity.main_jaccard jaccard_comparison
+INFO: File /home/kiran/Documents/input/article_comparison/folder 1/31341.xml matched to /home/kiran/Documents/input/article_comparison/folder 2/mas_3625.xml with % = 59
+12 May, 2014 5:15:49 PM jaccard_simlarity.main_jaccard jaccard_comparison
+INFO: File /home/kiran/Documents/input/article_comparison/folder 1/22251.xml matched to /home/kiran/Documents/input/article_comparison/folder 2/mas_2049.xml with % = 80
+12 May, 2014 5:15:49 PM jaccard_simlarity.main_jaccard jaccard_comparison
+INFO: File /home/kiran/Documents/input/article_comparison/folder 1/15958.xml matched to /home/kiran/Documents/input/article_comparison/folder 2/mas_911.xml with % = 63
+12 May, 2014 5:15:49 PM jaccard_simlarity.main_jaccard jaccard_comparison
+INFO: File /home/kiran/Documents/input/article_comparison/folder 1/17639.xml matched to /home/kiran/Documents/input/article_comparison/folder 2/mas_209.xml with % = 66
+12 May, 2014 5:15:50 PM jaccard_simlarity.main_jaccard jaccard_comparison
+INFO: File /home/kiran/Documents/input/article_comparison/folder 1/22751.xml matched to /home/kiran/Documents/input/article_comparison/folder 2/mas_2143.xml with % = 71
+12 May, 2014 5:15:50 PM jaccard_simlarity.main_jaccard jaccard_comparison
+INFO: File /home/kiran/Documents/input/article_comparison/folder 1/28463.xml matched to /home/kiran/Documents/input/article_comparison/folder 2/mas_336.xml with % = 66
+12 May, 2014 5:15:50 PM jaccard_simlarity.main_jaccard jaccard_comparison
+INFO: File /home/kiran/Documents/input/article_comparison/folder 1/8486.xml matched to /home/kiran/Documents/input/article_comparison/folder 2/mas_641.xml with % = 85
+12 May, 2014 5:15:50 PM jaccard_simlarity.main_jaccard jaccard_comparison
+INFO: File /home/kiran/Documents/input/article_comparison/folder 1/9384.xml matched to /home/kiran/Documents/input/article_comparison/folder 2/mas_209.xml with % = 75
+12 May, 2014 5:15:50 PM jaccard_simlarity.main_jaccard jaccard_comparison
+INFO: File /home/kiran/Documents/input/article_comparison/folder 1/5099.xml matched to /home/kiran/Documents/input/article_comparison/folder 2/mas_128.xml with % = 62
+12 May, 2014 5:15:50 PM jaccard_simlarity.main_jaccard jaccard_comparison
+INFO: File /home/kiran/Documents/input/article_comparison/folder 1/36592.xml matched to /home/kiran/Documents/input/article_comparison/folder 2/mas_438.xml with % = 50
+12 May, 2014 5:15:51 PM jaccard_simlarity.main_jaccard jaccard_comparison
+INFO: File /home/kiran/Documents/input/article_comparison/folder 1/15525.xml matched to /home/kiran/Documents/input/article_comparison/folder 2/mas_1806.xml with % = 62
+12 May, 2014 5:15:51 PM jaccard_simlarity.main_jaccard jaccard_comparison
+INFO: output written to /home/kiran/Documents/input/noun_extract/output

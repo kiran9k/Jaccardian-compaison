@@ -1,0 +1,16 @@
+ip1_folder_name=/home/kiran/Documents/input/article_comparison/folder 1
+
+ip2_folder_name=/home/kiran/Documents/input/article_comparison/folder 2
+
+ip_file_type=xml
+
+output_file_type=txt
+
+output_filename=output
+
+output_folder_name=/home/kiran/Documents/input/noun_extract
+
+cut-off_percent=50
+
+use-stop_words=yes
+
