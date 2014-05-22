@@ -1,5 +1,12 @@
 package jaccard_simlarity;
 
+/* Developer Info :
+ * Author : KIRAN
+ * Creation date : 14-05-2014
+ * Name : Jaccardian Simalrity
+ *  
+ */
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;

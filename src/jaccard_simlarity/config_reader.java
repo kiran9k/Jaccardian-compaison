@@ -1,5 +1,12 @@
 package jaccard_simlarity;
 
+/* Developer Info :
+ * Author : KIRAN
+ * Creation date : 14-05-2014
+ * Name : Jaccardian Simalrity
+ *  
+ */
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,8 +33,12 @@ public class config_reader {
 	            s.add(prop.getProperty("output_filename"));	
 	            
 	            s.add(prop.getProperty("output_folder_name"));
-	            s.add(prop.getProperty("cut-off_percent"));
+	            s.add(prop.getProperty("lower-cut-off_percent"));
+	            s.add(prop.getProperty("upper-cut-off_percent"));
 	            s.add(prop.getProperty("use-stop_words"));
+	            s.add(prop.getProperty("move_duplicate"));
+	            
+	            s.add(prop.getProperty("duplicate_folder_name"));
 	              
 	    	} catch (IOException ex) {
 	    		

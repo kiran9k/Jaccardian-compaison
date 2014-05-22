@@ -1,4 +1,4 @@
-ip1_folder_name=/home/kiran/Documents/input/article_comparison/folder 1
+ip1_folder_name=/home/kiran/Documents/input/article_comparison/folder 2
 
 ip2_folder_name=/home/kiran/Documents/input/article_comparison/folder 2
 
@@ -6,11 +6,18 @@ ip_file_type=xml
 
 output_file_type=txt
 
-output_filename=output
+output_filename=output_21_may
 
 output_folder_name=/home/kiran/Documents/input/noun_extract
 
-cut-off_percent=50
+lower-cut-off_percent=30
+
+upper-cut-off_percent=100
 
 use-stop_words=yes
 
+#move duplicate files to a seperate folder(yes/no)
+#applicable only if ip1_folder=ip2_folder
+move_duplicate=yes
+
+duplicate_folder_name=/home/kiran/Documents/input/article_comparison/temp
