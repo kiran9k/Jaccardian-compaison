@@ -156,13 +156,13 @@ public class main_jaccard {
 			e.printStackTrace();
 		} catch (IOException e) {			
 			e.printStackTrace();
-		}
+		}	
 		// TODO Auto-generated method stub
 		System.out.println("Main program started");
 		L.info("Main Program started");
 		L.info("Developer Info : version 1.2.1");
-		L.info("developer Info : Last modification date:21-05-2014");
-		L.info("Developer Info : Last comment : Added upper & lower cut-off percentage");
+		L.info("developer Info : Last modification date:22-05-2014");
+		L.info("Developer Info : Last comment : Added duplicate files removal option :22-05-2014");
 		jaccard_comparison();
 		L.info("Program completed ");
 	}
