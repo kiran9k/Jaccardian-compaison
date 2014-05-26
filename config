@@ -1,23 +1,43 @@
-ip1_folder_name=/home/kiran/Documents/input/article_comparison/folder 2
+# Folder containing the files set 1 (major)
+ip1_folder_name=/home/kiran/Documents/input/article_comparison/folder 1
 
+# Folder containing the files set 2
 ip2_folder_name=/home/kiran/Documents/input/article_comparison/folder 2
 
+# Type of files (xml) 
 ip_file_type=xml
 
+# File type for output(txt)
 output_file_type=txt
 
-output_filename=output_21_may
+# output File name(dont include .txt)
+output_filename=output_26_may
 
+# Output folder location
 output_folder_name=/home/kiran/Documents/input/noun_extract
 
-lower-cut-off_percent=30
+# Lower cut-off percent
+lower-cut-off_percent=75
 
+# Upper -cut off percent
 upper-cut-off_percent=100
 
+# remove stop words from the articles before comparison ?(yes/no)
 use-stop_words=yes
 
-#move duplicate files to a seperate folder(yes/no)
-#applicable only if ip1_folder=ip2_folder
-move_duplicate=yes
+# move duplicate files to a seperate folder(yes/no)
+# applicable only if ip1_folder=ip2_folder
+move_duplicate=no
 
+# location for moving duplicate entries 
 duplicate_folder_name=/home/kiran/Documents/input/article_comparison/temp
+
+# Apply actual Jaccardian( intersection()/union()) or modified Jaccardian(intersection()/set1())
+# possible values : = actual OR modified
+jaccardian_method=modified
+
+# display pecentage in result (yes/no)
+display_percentage=no
+
+# write log entries into a file(yes/no)
+write_log=no 

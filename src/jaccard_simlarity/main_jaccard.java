@@ -73,19 +73,25 @@ public class main_jaccard {
 					{
 						String n1= new File(file1.get(i)).getName();
 						String n2= new File(actual_file).getName();
-						if(output.contains(n2+"\t"+n1+"\t"+(int)(actual_result*100)))
+						if(output.contains(n2+"\t"+n1))
 						{
 							//already present							
 						}
 						else
 						{
-							output+=(n1+"\t"+n2+"\t" +(int)(actual_result*100)+"\n");
+							if(Global.prop.get(12).contains("yes"))
+								output+=(n1+"\t"+n2+"\t" +(int)(actual_result*100)+"\n");
+							else if(Global.prop.get(12).contains("no"))
+								output+=(n1+"\t"+n2+"\n");
 						}
 					}
 					else
 					{
-						output+=(new File(file1.get(i)).getName()+"\t"+new File(actual_file).getName()+"\t" +(int)(actual_result*100)+"\n");
-					}
+						if(Global.prop.get(12).contains("yes"))
+							output+=(new File(file1.get(i)).getName()+"\t"+new File(actual_file).getName()+"\t" +(int)(actual_result*100)+"\n");
+						else if(Global.prop.get(12).contains("no"))
+							output+=(new File(file1.get(i)).getName()+"\t"+new File(actual_file).getName()+"\n");
+					}	
 				}
 				
 			}
@@ -134,7 +140,19 @@ public class main_jaccard {
 			union.removeAll(Global.stop_words);
 			//System.out.println("after size:"+intersection.size()+" "+union.size());
 		}
-		float result=((float)intersection.size()/(float)union.size());
+		
+		float result;//=((float)intersection.size()/(float)union.size());
+		if(Global.prop.get(11).contains("actual"))
+			result=((float)intersection.size()/(float)union.size());
+		else if(Global.prop.get(11).contains("modified"))
+			result=((float)intersection.size()/(float)hashSet1.size());
+		else
+		{
+			System.out.println("Config property not properly set for Jaccardian_method");
+			L.info("Config property not properly set for Jaccardian_method");
+			result= -1;
+		}
+			
 		//System.out.println(intersection.size()+"\t"+union.size()+"\t"+result);
 		hashSet1.clear();
 		hashSet2.clear();
@@ -145,10 +163,10 @@ public class main_jaccard {
 	}
 	public static void main(String[] args) {
 		L=Logger.getLogger("log_test");		
-		FileHandler fh;		
+		FileHandler fh = null;		
 		try
 		{			
-			fh = new FileHandler("MainLogFile.log",true);
+			fh = new FileHandler("MainLogFile.log",true);			
 			L.addHandler(fh);
 			SimpleFormatter formatter = new SimpleFormatter();  
 		    fh.setFormatter(formatter);  
@@ -158,11 +176,13 @@ public class main_jaccard {
 			e.printStackTrace();
 		}	
 		// TODO Auto-generated method stub
+		if(Global.prop.get(13).contains("no"))
+			L.removeHandler(fh);
 		System.out.println("Main program started");
 		L.info("Main Program started");
-		L.info("Developer Info : version 1.2.1");
-		L.info("developer Info : Last modification date:22-05-2014");
-		L.info("Developer Info : Last comment : Added duplicate files removal option :22-05-2014");
+		L.info("Developer Info : version 1.3.1");
+		L.info("developer Info : Last modification date:26-05-2014");
+		L.info("Developer Info : Last comment : Added jaccardian_method,use_percent,write_log in config: 26-05-2014");
 		jaccard_comparison();
 		L.info("Program completed ");
 	}

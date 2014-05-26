@@ -39,7 +39,9 @@ public class config_reader {
 	            s.add(prop.getProperty("move_duplicate"));
 	            
 	            s.add(prop.getProperty("duplicate_folder_name"));
-	              
+	            s.add(prop.getProperty("jaccardian_method"));
+	            s.add(prop.getProperty("display_percentage"));
+	            s.add(prop.getProperty("write_log"));
 	    	} catch (IOException ex) {
 	    		
 	    		ex.printStackTrace();
