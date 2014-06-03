@@ -18,7 +18,8 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 
-public class main_jaccard {
+public class main_jaccard
+{
 	private static Logger L;
 	public static void jaccard_comparison()
 	{
@@ -30,8 +31,7 @@ public class main_jaccard {
 		System.out.println(file1.size()+"\t"+file2.size());
 		System.out.println(Global.prop.get(0)+Global.prop.get(1));
 		if(Global.prop.get(2).matches("xml"))
-		{
-			
+		{			
 			String content1="";
 			String content2="";
 			float prev_result=0;
@@ -104,9 +104,20 @@ public class main_jaccard {
 				for(String i:x)
 				{
 					//move_files(file+i.split("\t")[1],moved+i.split("\t")[1]);
-					
-					File afile=new File(file+"/"+i.split("\t")[0]);					
-					File bfile=new File(moved+"/"+i.split("\t")[0]);	
+					int a=Integer.valueOf(i.split("\t")[0].replaceAll("[^0-9]+",""));
+					int b=Integer.valueOf(i.split("\t")[1].replaceAll("[^0-9]+",""));
+					File afile;					
+					File bfile;
+					if(a>b)
+					{
+							afile=new File(file+"/"+i.split("\t")[1]);	
+							bfile=new File(moved+"/"+i.split("\t")[1]);
+					}
+					else
+					{
+						 afile=new File(file+"/"+i.split("\t")[0]);	
+						 bfile=new File(moved+"/"+i.split("\t")[0]);
+					}
 					L.info("File "+afile.getAbsolutePath()+" moved to "+bfile.getAbsolutePath());
 					System.out.println(afile.renameTo(bfile));
 				}
@@ -180,9 +191,9 @@ public class main_jaccard {
 			L.removeHandler(fh);
 		System.out.println("Main program started");
 		L.info("Main Program started");
-		L.info("Developer Info : version 1.3.1");
-		L.info("developer Info : Last modification date:26-05-2014");
-		L.info("Developer Info : Last comment : Added jaccardian_method,use_percent,write_log in config: 26-05-2014");
+		L.info("Developer Info : version 1.4.1");
+		L.info("developer Info : Last modification date:03-06-2014");
+		L.info("Developer Info : Last comment :Made changes in moving files ,v 1.4.1 : 03-06-2014");
 		jaccard_comparison();
 		L.info("Program completed ");
 	}
