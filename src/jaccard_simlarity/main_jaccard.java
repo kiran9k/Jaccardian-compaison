@@ -57,7 +57,7 @@ public class main_jaccard
 					else
 					{
 						content2=read_contents.read_from_xml(file2.get(j));
-						curr_result=jaccardian_computations(content1,content2);
+						curr_result=jaccardian_computations(content1,content2,true);
 						if(curr_result>actual_result)
 						{
 							actual_result=curr_result;
@@ -65,8 +65,36 @@ public class main_jaccard
 						}
 					}
 				}
+				
+				//2nd stage filter 
+				if(Global.prop.get(14).contains("yes") && actual_result*100<Float.valueOf(Global.prop.get(15)))
+				{
+					actual_file="";
+					actual_result=0;
+					curr_result=0;
+					for(int j=0;j<file2.size();j++)
+					{
+						if(new File(file1.get(i)).getName().matches(new File(file2.get(j)).getName()))
+						{
+							continue;
+						}
+						else
+						{
+							content2=read_contents.read_from_xml(file2.get(j));
+							curr_result=jaccardian_computations(content1,content2,false);
+							if(curr_result>actual_result)
+							{
+								actual_result=curr_result;
+								actual_file=file2.get(j);
+							}
+						}
+					}
+					
+				}
+				
 				L.info("File "+file1.get(i)+" matched to "+ actual_file+" with % = "+(int)(actual_result*100));
 				//System.out.println(actual_result+"\t"+file1.get(i));
+				
 				if(actual_file!="" && (actual_result*100)>=Float.valueOf(Global.prop.get(6)) && (actual_result*100)<=Float.valueOf(Global.prop.get(7)) )
 				{
 					if(de_dupe)
@@ -123,11 +151,19 @@ public class main_jaccard
 				}
 				
 			}
-			output_writer.txt_writer(output, Global.prop.get(5)+"/"+Global.prop.get(4));
+			if(Global.prop.get(3).contains("txt"))
+				output_writer.txt_writer(output, Global.prop.get(5)+"/"+Global.prop.get(4));
+			else if(Global.prop.get(3).contains("xls"))
+				output_writer.write_to_excel(output, Global.prop.get(5)+"/"+Global.prop.get(4));
+			else if(Global.prop.get(3).contains("all"))
+			{
+				output_writer.write_to_excel(output, Global.prop.get(5)+"/"+Global.prop.get(4));
+				output_writer.txt_writer(output, Global.prop.get(5)+"/"+Global.prop.get(4));
+			}
 			L.info("output written to "+Global.prop.get(5)+"/"+Global.prop.get(4));
 		}
 	}
-	public static float jaccardian_computations(String file1,String file2)
+	public static float jaccardian_computations(String file1,String file2,boolean actual)
 	{
 		String[] split1=file1.split("\\s+");
 		String[] split2=file2.split("\\s+");
@@ -153,10 +189,13 @@ public class main_jaccard
 		}
 		
 		float result;//=((float)intersection.size()/(float)union.size());
-		if(Global.prop.get(11).contains("actual"))
+		if(Global.prop.get(11).contains("actual") && actual)
 			result=((float)intersection.size()/(float)union.size());
-		else if(Global.prop.get(11).contains("modified"))
+		else if(Global.prop.get(11).contains("modified")&& actual)
 			result=((float)intersection.size()/(float)hashSet1.size());
+		else if(!actual)
+			result=((float)intersection.size()/(float)hashSet1.size());
+		
 		else
 		{
 			System.out.println("Config property not properly set for Jaccardian_method");
@@ -172,6 +211,7 @@ public class main_jaccard
 		
 		return result;
 	}
+	
 	public static void main(String[] args) {
 		L=Logger.getLogger("log_test");		
 		FileHandler fh = null;		
@@ -191,9 +231,9 @@ public class main_jaccard
 			L.removeHandler(fh);
 		System.out.println("Main program started");
 		L.info("Main Program started");
-		L.info("Developer Info : version 1.4.1");
-		L.info("developer Info : Last modification date:03-06-2014");
-		L.info("Developer Info : Last comment :Made changes in moving files ,v 1.4.1 : 03-06-2014");
+		L.info("Developer Info : version 1.5.1");
+		L.info("developer Info : Last modification date:13-06-2014");
+		L.info("Developer Info : Last comment :Added support to excel output,2 stage computation  ,v 1.5.1 : 13-06-2014");
 		jaccard_comparison();
 		L.info("Program completed ");
 	}

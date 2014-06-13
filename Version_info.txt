@@ -6,3 +6,9 @@
 
 03-06-2014 : 	1.4.1 
 		Made changes so that only old files get moved when used in de-dupe
+
+13-06-2014 :	1.5.1
+		Added support to write output in excel format (xls)
+		Made changes for 2 stage computation (works for article1 with length << article 2)	
+		Added 2 stage % & 2 stage usage option in config
+ 

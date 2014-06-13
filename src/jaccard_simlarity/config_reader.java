@@ -42,6 +42,9 @@ public class config_reader {
 	            s.add(prop.getProperty("jaccardian_method"));
 	            s.add(prop.getProperty("display_percentage"));
 	            s.add(prop.getProperty("write_log"));
+	            s.add(prop.getProperty("two_stage"));
+	            
+	            s.add(prop.getProperty("two_stage_percent"));
 	    	} catch (IOException ex) {
 	    		
 	    		ex.printStackTrace();

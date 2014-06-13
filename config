@@ -1,5 +1,5 @@
 # Folder containing the files set 1 (major)
-ip1_folder_name=/home/kiran/Documents/input/article_comparison/folder 2
+ip1_folder_name=/home/kiran/Documents/input/article_comparison/folder 1
 
 # Folder containing the files set 2
 ip2_folder_name=/home/kiran/Documents/input/article_comparison/folder 2
@@ -7,17 +7,17 @@ ip2_folder_name=/home/kiran/Documents/input/article_comparison/folder 2
 # Type of files (xml) 
 ip_file_type=xml
 
-# File type for output(txt)
-output_file_type=txt
+# File type for output(txt/xls/all)
+output_file_type=all
 
 # output File name(dont include .txt)
 output_filename=jaccardian_similarity_output
 
 # Output folder location
-output_folder_name=/home/kiran/Documents/input/noun_extract
+output_folder_name=/home/kiran/Documents/input/article_comparison
 
 # Lower cut-off percent
-lower-cut-off_percent=60
+lower-cut-off_percent=0
 
 # Upper -cut off percent
 upper-cut-off_percent=100
@@ -27,7 +27,7 @@ use-stop_words=yes
 
 # move duplicate files to a seperate folder(yes/no)
 # applicable only if ip1_folder=ip2_folder
-move_duplicate=yes
+move_duplicate=no
 
 # location for moving duplicate entries 
 duplicate_folder_name=/home/kiran/Documents/input/article_comparison/temp
@@ -37,7 +37,13 @@ duplicate_folder_name=/home/kiran/Documents/input/article_comparison/temp
 jaccardian_method=actual
 
 # display pecentage in result (yes/no)
-display_percentage=yes
+display_percentage=no
 
 # write log entries into a file(yes/no)
-write_log=no
+write_log=yes
+
+#use 2 stage comparison (yes/no)
+two_stage=yes
+
+#two-stage cut-off percentage
+two_stage_percent=50
