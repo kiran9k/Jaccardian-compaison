@@ -12,7 +12,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.logging.Logger;
-
+/**
+ * @author Kiran K 
+ */
 public class config_reader {
 
 	public config_reader() {
@@ -45,6 +47,9 @@ public class config_reader {
 	            s.add(prop.getProperty("two_stage"));
 	            
 	            s.add(prop.getProperty("two_stage_percent"));
+	            s.add(prop.getProperty("no_of_result"));
+	            s.add(prop.getProperty("seperator"));
+	            s.add(prop.getProperty("delete_files"));
 	    	} catch (IOException ex) {
 	    		
 	    		ex.printStackTrace();

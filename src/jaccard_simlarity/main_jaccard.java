@@ -11,16 +11,46 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
-
+/**
+ * @author Kiran K 
+ */
 public class main_jaccard
 {
+	
 	private static Logger L;
+	
+	public static Map<String, Float> sortByValue(HashMap<String,Float> map) {
+        List list = new LinkedList(map.entrySet());
+        Collections.sort(list, new Comparator() {
+
+            @Override
+            public int compare(Object o1, Object o2) {
+                return ((Comparable) ((Map.Entry) (o2)).getValue()).compareTo(((Map.Entry) (o1)).getValue());
+            }
+        });
+
+        Map result = new LinkedHashMap();
+        for (Iterator it = list.iterator(); it.hasNext();) {
+            Map.Entry entry = (Map.Entry) it.next();
+            result.put(entry.getKey(), entry.getValue());
+        }
+        return result;
+    }
+	
 	public static void jaccard_comparison()
 	{
 		boolean de_dupe=false;
@@ -28,141 +58,181 @@ public class main_jaccard
 		ArrayList<String> file2=file_lister.list_files(Global.prop.get(1),L);
 		if(Global.prop.get(0).matches(Global.prop.get(1)))
 			de_dupe=true;
-		System.out.println(file1.size()+"\t"+file2.size());
-		System.out.println(Global.prop.get(0)+Global.prop.get(1));
-		if(Global.prop.get(2).matches("xml"))
-		{			
-			String content1="";
-			String content2="";
-			float prev_result=0;
-			float curr_result=0;
-			float actual_result=0;
-			String actual_file="";
-			String output="";
-			for(int  i=0;i<file1.size();i++)
-			{
-				//System.out.println(file1.get(i));
+		//System.out.println(file1.size()+"\t"+file2.size());
+		//System.out.println(Global.prop.get(0)+Global.prop.get(1));
+		String content1="";
+		String content2="";
+		float prev_result=0;
+		float curr_result=0;
+		float actual_result=0;
+		String actual_file="";
+		String output="";
+		HashMap<String, Float> map = new LinkedHashMap<String, Float>();
+		for(int  i=0;i<file1.size();i++)
+		{
+			map.clear();
+			//System.out.println(file1.get(i));
+			if(Global.prop.get(2).matches("xml"))
 				content1=read_contents.read_from_xml(file1.get(i));
-				//System.out.println(content1);
-				actual_result=0;
-				prev_result=0;
+			//System.out.println(content1);
+			actual_result=0;
+			prev_result=0;
+			actual_file="";
+			curr_result=0;
+			for(int j=0;j<file2.size();j++)
+			{
+				if(new File(file1.get(i)).getName().contains(new File(file2.get(j)).getName()))
+				{
+				/*	System.out.println("same");
+					System.out.println(file1.get(i));
+					System.out.println(file2.get(j));
+					System.out.println(new File(file1.get(i)).getName());*/
+					continue;
+				}
+				else
+				{
+					if(Global.prop.get(2).matches("xml"))
+						content2=read_contents.read_from_xml(file2.get(j));
+					if(content1.length()>0 && content2.length()>0)
+						curr_result=jaccardian_computations(content1,content2,true);
+					if((curr_result*100>Float.valueOf(Global.prop.get(6))) && ((curr_result*100)<=Float.valueOf(Global.prop.get(7))))
+					{
+						actual_result=curr_result;
+						actual_file=file2.get(j);
+						map.put(file2.get(j),curr_result*100);
+						/*System.out.println(file1.get(i));
+						System.out.println(file2.get(j));
+						System.out.println("mappped");*/
+					}
+				}
+			}				
+			//2nd stage filter 
+			if(Global.prop.get(14).contains("yes") && actual_result*100<Float.valueOf(Global.prop.get(15)))
+			{
+				map.clear();
 				actual_file="";
+				//actual_result=0;
 				curr_result=0;
 				for(int j=0;j<file2.size();j++)
 				{
-					if(new File(file1.get(i)).getName().matches(new File(file2.get(j)).getName()))
+					if(new File(file1.get(i)).getName().contains(new File(file2.get(j)).getName()))
 					{
 						continue;
 					}
 					else
 					{
-						content2=read_contents.read_from_xml(file2.get(j));
-						curr_result=jaccardian_computations(content1,content2,true);
-						if(curr_result>actual_result)
+						if(Global.prop.get(2).matches("xml"))
+							content2=read_contents.read_from_xml(file2.get(j));
+						if(content1.length()>0 && content2.length()>0)
+							curr_result=jaccardian_computations(content1,content2,false);
+						if((curr_result*100>Float.valueOf(Global.prop.get(6))) && ((curr_result*100)<=Float.valueOf(Global.prop.get(7))))
 						{
 							actual_result=curr_result;
 							actual_file=file2.get(j);
+							map.put(file2.get(j),curr_result*100);
 						}
 					}
-				}
-				
-				//2nd stage filter 
-				if(Global.prop.get(14).contains("yes") && actual_result*100<Float.valueOf(Global.prop.get(15)))
+				}					
+			}
+			//output+="\n";
+			Map<String,Float> sortedMap = sortByValue(map);
+			int count=0;
+			for (Map.Entry<String, Float> entry : sortedMap.entrySet())
+			{
+				if(count<Integer.valueOf(Global.prop.get(16)))
 				{
-					actual_file="";
-					actual_result=0;
-					curr_result=0;
-					for(int j=0;j<file2.size();j++)
+					String n1= new File(file1.get(i)).getName();
+					String n2= new File(entry.getKey()).getName();
+					float p=entry.getValue();
+					if(output.contains(n2+Global.prop.get(17)+n1))
 					{
-						if(new File(file1.get(i)).getName().matches(new File(file2.get(j)).getName()))
-						{
-							continue;
-						}
-						else
-						{
-							content2=read_contents.read_from_xml(file2.get(j));
-							curr_result=jaccardian_computations(content1,content2,false);
-							if(curr_result>actual_result)
-							{
-								actual_result=curr_result;
-								actual_file=file2.get(j);
-							}
-						}
-					}
-					
-				}
-				
-				L.info("File "+file1.get(i)+" matched to "+ actual_file+" with % = "+(int)(actual_result*100));
-				//System.out.println(actual_result+"\t"+file1.get(i));
-				
-				if(actual_file!="" && (actual_result*100)>=Float.valueOf(Global.prop.get(6)) && (actual_result*100)<=Float.valueOf(Global.prop.get(7)) )
-				{
-					if(de_dupe)
-					{
-						String n1= new File(file1.get(i)).getName();
-						String n2= new File(actual_file).getName();
-						if(output.contains(n2+"\t"+n1))
-						{
-							//already present							
-						}
-						else
-						{
-							if(Global.prop.get(12).contains("yes"))
-								output+=(n1+"\t"+n2+"\t" +(int)(actual_result*100)+"\n");
-							else if(Global.prop.get(12).contains("no"))
-								output+=(n1+"\t"+n2+"\n");
-						}
+						//already present
 					}
 					else
 					{
+						output+=n1+Global.prop.get(17)+n2;
+						//	add percentage or not					
 						if(Global.prop.get(12).contains("yes"))
-							output+=(new File(file1.get(i)).getName()+"\t"+new File(actual_file).getName()+"\t" +(int)(actual_result*100)+"\n");
-						else if(Global.prop.get(12).contains("no"))
-							output+=(new File(file1.get(i)).getName()+"\t"+new File(actual_file).getName()+"\n");
-					}	
+						{
+							output+=Global.prop.get(17)+String.valueOf((int)p);
+						}
+						output+="\n";
+					}
+		    		L.info("File "+n1+" matched to "+ n2+" with % = "+(int)(p));
+		    		count++;
 				}
-				
-			}
-			if(Global.prop.get(9).contains("yes") && de_dupe)
+		    }
+			sortedMap.clear();
+		}
+		//Duplicate files removal 
+		if(Global.prop.get(9).contains("yes") && de_dupe)
+		{
+			//move files
+			String[] x=null;
+			if(output.length()>0)
 			{
-				//move files
-				String[] x=output.split("\n");
+				x=output.split("\n");
 				String file=Global.prop.get(1);
 				String moved=Global.prop.get(10);
-				for(String i:x)
+				for(String i1:x)
 				{
-					//move_files(file+i.split("\t")[1],moved+i.split("\t")[1]);
-					int a=Integer.valueOf(i.split("\t")[0].replaceAll("[^0-9]+",""));
-					int b=Integer.valueOf(i.split("\t")[1].replaceAll("[^0-9]+",""));
+					//	move_files(file+i.split("\t")[1],moved+i.split("\t")[1]);
+					int a=Integer.valueOf(i1.split("\t")[0].replaceAll("[^0-9]+",""));
+					int b=Integer.valueOf(i1.split("\t")[1].replaceAll("[^0-9]+",""));
 					File afile;					
 					File bfile;
 					if(a>b)
 					{
-							afile=new File(file+"/"+i.split("\t")[1]);	
-							bfile=new File(moved+"/"+i.split("\t")[1]);
+						afile=new File(file+"/"+i1.split("\t")[1]);	
+						bfile=new File(moved+"/"+i1.split("\t")[1]);
 					}
 					else
 					{
-						 afile=new File(file+"/"+i.split("\t")[0]);	
-						 bfile=new File(moved+"/"+i.split("\t")[0]);
+						afile=new File(file+"/"+i1.split("\t")[0]);	
+						bfile=new File(moved+"/"+i1.split("\t")[0]);
 					}
 					L.info("File "+afile.getAbsolutePath()+" moved to "+bfile.getAbsolutePath());
 					System.out.println(afile.renameTo(bfile));
 				}
-				
 			}
-			if(Global.prop.get(3).contains("txt"))
-				output_writer.txt_writer(output, Global.prop.get(5)+"/"+Global.prop.get(4));
-			else if(Global.prop.get(3).contains("xls"))
-				output_writer.write_to_excel(output, Global.prop.get(5)+"/"+Global.prop.get(4));
-			else if(Global.prop.get(3).contains("all"))
-			{
-				output_writer.write_to_excel(output, Global.prop.get(5)+"/"+Global.prop.get(4));
-				output_writer.txt_writer(output, Global.prop.get(5)+"/"+Global.prop.get(4));
-			}
-			L.info("output written to "+Global.prop.get(5)+"/"+Global.prop.get(4));
 		}
+		
+		//delete files from directory 
+		if(Global.prop.get(18).matches("yes"))
+		{
+			for (String i:file1)
+			{
+				new File(i).delete();
+			}
+			for (String i:file2)
+			{
+				new File(i).delete();
+			}
+			L.info("All files deleted from the input directory");
+		}
+		
+		//write output to txt/xls
+		//if output == null dont write to file 
+		/*if(output.length()==0)
+		{
+			L.info("Nothing present to write to output file");
+			return ;		
+		}*/
+		if(Global.prop.get(3).contains("txt"))
+			output_writer.txt_writer(output, Global.prop.get(5)+"/"+Global.prop.get(4));
+		else if(Global.prop.get(3).contains("xls"))
+			output_writer.write_to_excel(output, Global.prop.get(5)+"/"+Global.prop.get(4));
+		else if(Global.prop.get(3).contains("all"))
+		{
+			output_writer.write_to_excel(output, Global.prop.get(5)+"/"+Global.prop.get(4));
+			output_writer.txt_writer(output, Global.prop.get(5)+"/"+Global.prop.get(4));
+		}
+		L.info("output written to "+Global.prop.get(5)+"/"+Global.prop.get(4));
+		
 	}
+		
+		
+	
 	public static float jaccardian_computations(String file1,String file2,boolean actual)
 	{
 		String[] split1=file1.split("\\s+");
@@ -229,11 +299,11 @@ public class main_jaccard
 		// TODO Auto-generated method stub
 		if(Global.prop.get(13).contains("no"))
 			L.removeHandler(fh);
-		System.out.println("Main program started");
+		//System.out.println("Main program started");
 		L.info("Main Program started");
-		L.info("Developer Info : version 1.5.1");
-		L.info("developer Info : Last modification date:13-06-2014");
-		L.info("Developer Info : Last comment :Added support to excel output,2 stage computation  ,v 1.5.1 : 13-06-2014");
+		L.info("Developer Info : version 1.6.1");
+		L.info("developer Info : Last modification date:18-06-2014");
+		L.info("Developer Info : Last comment :Added file delete ,seperator,max count of matched article ,v1.6.1 : 18-06-2014");
 		jaccard_comparison();
 		L.info("Program completed ");
 	}

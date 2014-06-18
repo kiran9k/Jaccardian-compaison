@@ -25,7 +25,9 @@ import org.jsoup.select.Elements;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
-
+/**
+ * @author Kiran K 
+ */
 public class read_contents {
 	
 	public static String read_from_html(String filename) 

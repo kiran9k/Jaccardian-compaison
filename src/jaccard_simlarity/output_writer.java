@@ -40,7 +40,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-
+/**
+ * @author Kiran K 
+ */
 public class output_writer {
 
 	public output_writer() {
@@ -57,7 +59,7 @@ public class output_writer {
 					file.createNewFile();
 				} 
 			
-				FileWriter fw = new FileWriter(file.getAbsoluteFile(),true);
+				FileWriter fw = new FileWriter(file.getAbsoluteFile(),false);
 				BufferedWriter bw = new BufferedWriter(fw);
 				
 				bw.write(content);
