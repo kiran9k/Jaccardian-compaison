@@ -97,7 +97,8 @@ public class main_jaccard
 						curr_result=jaccardian_computations(content1,content2,true);
 					if((curr_result*100>Float.valueOf(Global.prop.get(6))) && ((curr_result*100)<=Float.valueOf(Global.prop.get(7))))
 					{
-						actual_result=curr_result;
+						if(actual_result<curr_result)
+							actual_result=curr_result;
 						actual_file=file2.get(j);
 						map.put(file2.get(j),curr_result*100);
 						/*System.out.println(file1.get(i));
@@ -110,6 +111,7 @@ public class main_jaccard
 			if(Global.prop.get(14).contains("yes") && actual_result*100<Float.valueOf(Global.prop.get(15)))
 			{
 				map.clear();
+				System.out.println("Two stage-enterd" +actual_result);
 				actual_file="";
 				//actual_result=0;
 				curr_result=0;
@@ -183,13 +185,13 @@ public class main_jaccard
 					File bfile;
 					if(a>b)
 					{
-						afile=new File(file+"/"+i1.split("\t")[1]);	
-						bfile=new File(moved+"/"+i1.split("\t")[1]);
+						afile=new File(file+File.separator+i1.split("\t")[1]);	
+						bfile=new File(moved+File.separator+i1.split("\t")[1]);
 					}
 					else
 					{
-						afile=new File(file+"/"+i1.split("\t")[0]);	
-						bfile=new File(moved+"/"+i1.split("\t")[0]);
+						afile=new File(file+File.separator+i1.split("\t")[0]);	
+						bfile=new File(moved+File.separator+i1.split("\t")[0]);
 					}
 					L.info("File "+afile.getAbsolutePath()+" moved to "+bfile.getAbsolutePath());
 					System.out.println(afile.renameTo(bfile));
@@ -218,16 +220,18 @@ public class main_jaccard
 			L.info("Nothing present to write to output file");
 			return ;		
 		}*/
+		file1.clear();
+		file2.clear();
 		if(Global.prop.get(3).contains("txt"))
-			output_writer.txt_writer(output, Global.prop.get(5)+"/"+Global.prop.get(4));
+			output_writer.txt_writer(output, Global.prop.get(5)+File.separator+Global.prop.get(4));
 		else if(Global.prop.get(3).contains("xls"))
-			output_writer.write_to_excel(output, Global.prop.get(5)+"/"+Global.prop.get(4));
+			output_writer.write_to_excel(output, Global.prop.get(5)+File.separator+Global.prop.get(4));
 		else if(Global.prop.get(3).contains("all"))
 		{
-			output_writer.write_to_excel(output, Global.prop.get(5)+"/"+Global.prop.get(4));
-			output_writer.txt_writer(output, Global.prop.get(5)+"/"+Global.prop.get(4));
+			output_writer.write_to_excel(output, Global.prop.get(5)+File.separator+Global.prop.get(4));
+			output_writer.txt_writer(output, Global.prop.get(5)+File.separator+Global.prop.get(4));
 		}
-		L.info("output written to "+Global.prop.get(5)+"/"+Global.prop.get(4));
+		L.info("output written to "+Global.prop.get(5)+File.separator+Global.prop.get(4));
 		
 	}
 		
@@ -235,19 +239,64 @@ public class main_jaccard
 	
 	public static float jaccardian_computations(String file1,String file2,boolean actual)
 	{
-		String[] split1=file1.split("\\s+");
-		String[] split2=file2.split("\\s+");
+		String[] split1;
+		String[] split2;
+		Set<String> hashSet1 ;
+		Set<String> hashSet2 ;
+		boolean stop_words_removed=false;
+		if(Global.prop.get(19).contains("yes"))
+		{
+			//makes use of bigram s
+			//replaces all special charc's except nos & alphabet
+			//then splits at end of each words
+			List<String> list1 = new ArrayList<String>(Arrays.asList((file1.replaceAll("\\p{P}", "")).split("\\s+")));
+			List<String> list2 = new ArrayList<String>(Arrays.asList((file2.replaceAll("\\p{P}", "")).split("\\s+")));
+			//removes stop words 
+			if(Global.prop.get(8).matches("yes") )
+			{
+				list1.removeAll(Global.stop_words);
+				list2.removeAll(Global.stop_words);
+				stop_words_removed=true;
+				
+			}
+			List<String> temp=new ArrayList<String>();
+			
+			for (int i=0;i<list1.size()-1;i++)
+			{
+				temp.add(list1.get(i)+" "+list1.get(i+1));
+			}
+			hashSet1 = new HashSet<String>(temp);
+			temp.clear();
+			for (int i=0;i<list2.size()-1;i++)
+			{
+				temp.add(list2.get(i)+" "+list2.get(i+1));
+			}
+			hashSet2 = new HashSet<String>(temp);			
+			temp=null;
+			
+		}
+		else
+		{
+			//doesnt use bigram
+			split1=file1.split("\\s+");
+			split2=file2.split("\\s+");
+			file1="";
+			file2="";
+			hashSet1 = new HashSet<String>(Arrays.asList(split1));		
+			hashSet2 = new HashSet<String>(Arrays.asList(split2));
+			
+		}
+		
+		split1=null;
+		split2=null;
 		file1="";
 		file2="";
-		Set<String> hashSet1 = new HashSet<String>(Arrays.asList(split1));
-		
-		Set<String> hashSet2 = new HashSet<String>(Arrays.asList(split2));
 		Set<String> intersection = new HashSet<String>(hashSet1);
 		intersection.retainAll(hashSet2);
 		Set<String> union = new HashSet<String>();
 		union.addAll(hashSet2);
 		union.addAll(hashSet1);
-		if(Global.prop.get(8).matches("yes"))
+		if(Global.prop.get(8).matches("yes") && !stop_words_removed)
 		{
 			//L.info("Stopwords removed");
 			//System.out.println("Stop size:"+Global.stop_words.size());
@@ -301,9 +350,9 @@ public class main_jaccard
 			L.removeHandler(fh);
 		//System.out.println("Main program started");
 		L.info("Main Program started");
-		L.info("Developer Info : version 1.6.1");
-		L.info("developer Info : Last modification date:18-06-2014");
-		L.info("Developer Info : Last comment :Added file delete ,seperator,max count of matched article ,v1.6.1 : 18-06-2014");
+		L.info("Developer Info : version 1.7.1");
+		L.info("developer Info : Last modification date:14-07-2014");
+		L.info("Developer Info : Last comment :Added Bi-gram support ,v1.7.1 : 14-07-2014");
 		jaccard_comparison();
 		L.info("Program completed ");
 	}

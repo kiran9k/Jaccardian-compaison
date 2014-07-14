@@ -46,10 +46,11 @@ public class config_reader {
 	            s.add(prop.getProperty("write_log"));
 	            s.add(prop.getProperty("two_stage"));
 	            
-	            s.add(prop.getProperty("two_stage_percent"));
+	            s.add(prop.getProperty("two_stage_percent"));//15
 	            s.add(prop.getProperty("no_of_result"));
 	            s.add(prop.getProperty("seperator"));
 	            s.add(prop.getProperty("delete_files"));
+	            s.add(prop.getProperty("use_bigram"));
 	    	} catch (IOException ex) {
 	    		
 	    		ex.printStackTrace();

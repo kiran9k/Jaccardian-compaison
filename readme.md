@@ -27,5 +27,9 @@ Features :
  
 - the matched results are stored in  a text file . (file1 file2 %match)
 
+- user definable number of results to be displayed for a particular article match 
+ 
+- user configurable  Bigram / uni-gram usage.
+
 
 

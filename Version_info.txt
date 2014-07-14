@@ -18,5 +18,9 @@
 		Added file delete option (deletes file from both input folder after processing)
 		Added file seperator option (present in output file , Seperates file1,file2,& %)
 		Added max count of results for a particular input to be displayed ..
+
+14-07-2014:	1.7.1	
+		Added Bigram  comparison .
+	
  
 

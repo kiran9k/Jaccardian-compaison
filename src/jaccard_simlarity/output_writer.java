@@ -74,7 +74,9 @@ public class output_writer {
 			}
 		
 		}
-	
+	/**
+	 * @author Kiran K 
+	 */
 	public static void write_to_excel(String content,String filename)
 	{
 		HSSFWorkbook workbook = new HSSFWorkbook();
